@@ -1,6 +1,11 @@
 const cards = document.querySelectorAll('.cardmemory');
 
+cards.forEach(card => card.classList.add('flip'));
+randomizar();
 
+setTimeout(() => {
+    cards.forEach(card => card.classList.remove('flip'))
+}, 4500);
 
 rachaInt = 0;
 vidasInt = 10;
@@ -20,17 +25,17 @@ let primeraCarta, segundaCarta;
 
     this.classList.add('flip');
 
-  if (!cartaEstaFlipped) {
-    cartaEstaFlipped = true;
-    primeraCarta = this;
-    return;
-  }
+    if (!cartaEstaFlipped) {
+        cartaEstaFlipped = true;
+        primeraCarta = this;
+        return;
+    }
     segundaCarta = this;
 
-   checkForMatch();
+    checkearSiHayMatch();
  }
 
- function checkForMatch() {
+ function checkearSiHayMatch() {
    if (primeraCarta.dataset.framework === segundaCarta.dataset.framework) {
      desactivarVolteo();
      
@@ -68,13 +73,13 @@ let primeraCarta, segundaCarta;
 
  function devolverCartas() {
 
-     cerrarTabla = true;
-   setTimeout(() => {
-     primeraCarta.classList.remove('flip');
-     segundaCarta.classList.remove('flip');
+    cerrarTabla = true;
+    setTimeout(() => {
+        primeraCarta.classList.remove('flip');
+        segundaCarta.classList.remove('flip');
 
-     resetTabla();
-   }, 1500);
+        resetTabla();
+    }, 1500);
  }
 
  function resetTabla(){
@@ -82,12 +87,12 @@ let primeraCarta, segundaCarta;
      [primeraCarta, segundaCarta] = [null, null];
  }
 
- (function randomizar(){
+ function randomizar(){
      cards.forEach(card=>{
          let posicionRandom = Math.floor(Math.random()*12);
          card.style.order = posicionRandom;
      });
- })();
+ }
  
 
 cards.forEach(card => card.addEventListener('click', voltearCarta));
